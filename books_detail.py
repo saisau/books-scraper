@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 import re
 
 BASE_URL = "https://books.toscrape.com/catalogue/"
-CSV_Title="books_detail_minimal.csv"
+EXCEL_TITLE = "books_detail_minimal.xlsx"
 records = []
 
 
@@ -96,7 +96,7 @@ while True:
     next_href = pager_next.find("a")["href"]
     url = urljoin(BASE_URL, next_href)
 
-# --- CSV 出力（タイトル・価格・通貨・URL のみ）---
+# --- Excel 出力（タイトル・価格・通貨・URL のみ）---
 df = pd.DataFrame(records, columns=["title", "price", "currency", "url"])
-df.to_csv(CSV_Title, index=False, encoding="utf-8-sig")
+df.to_excel(EXCEL_TITLE, index=False, sheet_name="books")
 print(f"[INFO] 取得件数: {len(records)} 件")
